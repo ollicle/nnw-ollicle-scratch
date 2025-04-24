@@ -1,10 +1,8 @@
 # Scratch – NetNewsWire theme
 
-A NetNewsWire theme built from scratch.
+A [theme](https://netnewswire.com/help/mac/6.1/en/themes.html) for [NetNewsWire](https://netnewswire.com/) – built from scratch.
 
-A [theme](https://netnewswire.com/help/mac/6.1/en/themes.html) for [NetNewsWire](https://netnewswire.com/).
-
-A work in progress.
+A work in progress. To be continued.
 
 ## Install for use
 
