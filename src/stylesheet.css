@@ -1,0 +1,21 @@
+
+hgroup {
+	font-weight: bold;
+}
+
+hgroup span + span {
+	display: none;
+}
+
+hgroup:has(span:empty) span {
+	display: none;
+}
+
+hgroup:has(span:empty) span + span {
+	display: inline;
+}
+
+.external-link a:empty,
+hr:has(+ .external-link a:empty) {
+	display: none;
+}
