@@ -2,9 +2,9 @@
 
 A NetNewsWire theme built from scratch.
 
-A [theme](https://netnewswire.com/help/mac/6.1/en/themes.html) for [NetNewsWire](https://netnewswire.com/) that documents NetNewsWire theme template variables – displaying the values extracted for each viewed post.
+A [theme](https://netnewswire.com/help/mac/6.1/en/themes.html) for [NetNewsWire](https://netnewswire.com/).
 
-Useful if you are [building a NetNewsWire theme](https://github.com/Ranchero-Software/NetNewsWire/blob/main/Technotes/Themes.md) from scratch.
+A work in progress.
 
 ## Install for use
 
