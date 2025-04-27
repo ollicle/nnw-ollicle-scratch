@@ -2,6 +2,8 @@ hgroup {
 	font-weight: bold;
 }
 
+/* Element visibility */
+
 hgroup span + span {
 	display: none;
 }
@@ -18,3 +20,34 @@ hgroup:has(span:empty) span + span {
 hr:has(+ .external-link a:empty) {
 	display: none;
 }
+
+/* Font sizing */
+
+body {
+	font-size: [[font-size]]px;
+}
+
+table {
+	font-size: inherit;
+}
+
+.smallText {
+	font-size: 90%;
+}
+
+.mediumText {
+	font-size: 100%;
+}
+
+.largeText {
+	font-size: 125%;
+}
+
+.xLargeText {
+	font-size: 150%;
+}
+
+.xxLargeText {
+	font-size: 200%;
+}
+
