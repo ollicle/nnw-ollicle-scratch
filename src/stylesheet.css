@@ -1,3 +1,32 @@
+/* Colour */
+
+:root {
+	color-scheme: light dark;
+	--color-contrast: 65%;
+	--visited-link-color: oklch(50.3% 0.282 295);
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+		--visited-link-color: oklch(84.1% 0.09855 303);
+	}
+}
+
+body,
+a {
+	color: color-mix(in oklab, CanvasText var(--color-contrast), Canvas);
+	background-color: Canvas;
+}
+
+a {
+	--color-contrast: 80%;
+	
+	&:visited {
+		color: var(--visited-link-color);
+	}
+}
+
+
 hgroup {
 	font-weight: bold;
 }
@@ -50,4 +79,3 @@ table {
 .xxLargeText {
 	font-size: 200%;
 }
-
