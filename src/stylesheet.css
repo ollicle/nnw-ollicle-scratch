@@ -19,7 +19,7 @@ a {
 }
 
 a {
-	--color-contrast: 80%;
+	--color-contrast: 75%;
 	
 	&:visited {
 		color: var(--visited-link-color);
