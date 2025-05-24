@@ -26,12 +26,20 @@ a {
 	}
 }
 
+.articleBody {
+	span,
+	div {
+		all: revert !important;
+	}
+}
+
+div:empty {
+	display: none;
+}
 
 hgroup {
 	font-weight: bold;
 }
-
-/* Element visibility */
 
 hgroup span + span {
 	display: none;
@@ -55,6 +63,7 @@ hr:has(+ .external-link a:empty) {
 body {
 	font-size: [[font-size]]px;
 	-webkit-text-size-adjust: none;
+	overflow-wrap: anywhere;
 }
 
 table {
@@ -79,4 +88,67 @@ table {
 
 .xxLargeText {
 	font-size: 200%;
+}
+
+img {
+	max-inline-size: 100%;
+	max-block-size: 100vh;
+	block-size: auto !important;
+	object-fit: contain;
+	object-position: left;
+}
+
+svg {
+	max-inline-size: 100%;
+}
+
+svg:not([fill="none"]) {
+	fill: currentColor;
+}
+
+svg:where([viewBox]) {
+	display: block;
+	inline-size: 100%;
+	block-size: auto;
+}
+
+:is(h1,h2,h3,h4,h5,h6) a svg,
+svg:not([width]),
+svg:has(+ :is(a, span)) {
+	display: inline-block;
+	inline-size: 1cap;
+	block-size: 1cap;
+	margin-inline-end: 0.5ch;
+}
+
+video {
+	display: block;
+	inline-size: 100%;
+	block-size: auto;
+}
+
+iframe {
+	border: none;
+	display: block;
+	max-inline-size: 100%;
+}
+
+iframe:not([width][height]),
+iframe[width="200"][height="113"],
+iframe[width="480"][height="270"],
+iframe[width="560"][height="315"],
+iframe[width="1080"][height="608"] {
+	inline-size: 100%;
+	block-size: auto;
+	aspect-ratio: 16 / 9;
+}
+
+pre {
+	max-inline-size: 100%;
+	overflow-x: auto;
+	padding-block-end: 1.25em;
+}
+
+canvas {
+	max-inline-size: 100%;
 }
