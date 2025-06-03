@@ -2,7 +2,11 @@
 
 :root {
 	color-scheme: light dark;
-	--color-contrast: 65%;
+	--text-color-contrast: 65%;
+	--link-color-contrast: 75%;
+	
+	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
+	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
 	--visited-link-color: oklch(50.3% 0.282 295);
 }
 
@@ -12,14 +16,12 @@
 	}
 }
 
-body,
-a {
-	color: color-mix(in oklab, CanvasText var(--color-contrast), Canvas);
-	background-color: Canvas;
+body {
+	color: var(--text-color);
 }
 
 a {
-	--color-contrast: 75%;
+	color: var(--link-color);
 	
 	&:visited {
 		color: var(--visited-link-color);
