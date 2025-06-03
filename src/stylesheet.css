@@ -102,10 +102,6 @@ svg {
 	max-inline-size: 100%;
 }
 
-svg:not([fill="none"]) {
-	fill: currentColor;
-}
-
 svg:where([viewBox]) {
 	display: block;
 	inline-size: 100%;
@@ -121,10 +117,8 @@ svg:has(+ :is(a, span)) {
 	margin-inline-end: 0.5ch;
 }
 
-video {
-	display: block;
-	inline-size: 100%;
-	block-size: auto;
+svg:not([fill="none"]) {
+	fill: currentColor;
 }
 
 iframe {
@@ -141,6 +135,12 @@ iframe[width="1080"][height="608"] {
 	inline-size: 100%;
 	block-size: auto;
 	aspect-ratio: 16 / 9;
+}
+
+video {
+	display: block;
+	inline-size: 100%;
+	block-size: auto;
 }
 
 pre {
