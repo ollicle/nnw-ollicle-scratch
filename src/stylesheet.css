@@ -29,8 +29,8 @@ a {
 }
 
 .articleBody {
-	span,
-	div {
+	span[style],
+	div[style]:not([class^="newsfoot"]) {
 		all: revert !important;
 	}
 }
