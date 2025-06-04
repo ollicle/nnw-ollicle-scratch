@@ -35,7 +35,7 @@ a {
 	}
 }
 
-div:empty {
+:is(p,div):where(:empty) {
 	display: none;
 }
 
