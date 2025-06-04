@@ -155,3 +155,49 @@ pre {
 canvas {
 	max-inline-size: 100%;
 }
+
+:root {
+	--footnote-margin: 0.3rem;
+}
+
+.newsfoot-footnote-container {
+	margin-inline-start: var(--footnote-margin);
+	--contained: 0;
+}
+
+a.footnote {
+	color: Canvas;
+	background-color: var(--link-color);
+	margin-inline-start: var(--contained, var(--footnote-margin));
+	font-weight: bold;
+}
+
+/* 1: Overriding NNW core stylesheet */
+.newsfoot-footnote-popover {
+	padding-inline: 0; /* 1 */
+	border: solid 0.125em currentColor;
+	background-color: Canvas;
+}
+
+/* 1: Override :empty rule */
+/* 2: Covers the popover border */
+/* 3: Outline doesn’t affect position */
+.newsfoot-footnote-popover-arrow {
+	display: block; /* 1 */
+	background-color: Canvas; /* 2 */
+	outline: solid 0.125em currentColor; /* 3 */
+	outline-offset: -0.0625em;
+}
+
+/* 1: Covers the arrow */
+.newsfoot-footnote-popover-inner {
+	background-color: Canvas; /* 1 */
+}
+
+/* 
+Resize of paragraphs in footnote popovers to match body
+Cursed that this works.
+*/
+p p {
+	font-size: 120%;
+}
