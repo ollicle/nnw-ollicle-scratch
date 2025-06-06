@@ -196,7 +196,7 @@ a.footnote {
 
 /* 
 Resize of paragraphs in footnote popovers to match body
-Cursed that this works.
+Cursed.
 */
 p p {
 	font-size: 120%;
