@@ -200,16 +200,16 @@ p p {
 
 pre,
 .nnw-overflow {
-	padding-block-start: 0.5rem;
+	padding-block-start: 0.5em;
 	max-width: 100%;
+	overflow-x: auto;
+	overscroll-behavior-inline: none;
 	--dot: radial-gradient(
 		circle at center, 
 		var(--text-color) 0, 
 		var(--text-color) 70%,
 		transparent 70%);
 	--d-size: .3rem .3rem;
-	overflow-x: auto;
-	overscroll-behavior-inline: none;
 	background-image:
 		/* Cover left */
 		linear-gradient(
