@@ -5,7 +5,6 @@
 	--text-color-contrast: 65%;
 	--link-color-contrast: 75%;
 	--rule-color-contrast: 40%;
-	
 	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
 	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
 	--rule-color: color-mix(in oklab, CanvasText var(--rule-color-contrast), Canvas);
@@ -202,7 +201,6 @@ p p {
 pre,
 .nnw-overflow {
 	padding-block-start: 0.5rem;
-	overflow-x: auto;
 	max-width: 100%;
 	--dot: radial-gradient(
 		circle at center, 
@@ -210,7 +208,8 @@ pre,
 		var(--text-color) 70%,
 		transparent 70%);
 	--d-size: .3rem .3rem;
-	background-color: Canvas;
+	overflow-x: auto;
+	overscroll-behavior-inline: none;
 	background-image:
 		/* Cover left */
 		linear-gradient(
@@ -223,10 +222,10 @@ pre,
 		/* Dots */
     	var(--dot),var(--dot),var(--dot),
     	var(--dot),var(--dot),var(--dot);
-	background-size: 4rem 100%, 4rem 100%, 
+	background-size: 4rem 100%, 4rem 100%,
 		var(--d-size), var(--d-size), var(--d-size),
 		var(--d-size), var(--d-size), var(--d-size);
-	background-position: left, right, 
+	background-position: left, right,
 		top left, top left 0.5rem, top left 1rem,
 		top right, top right 0.5rem, top right 1rem;
 	background-repeat: no-repeat;
