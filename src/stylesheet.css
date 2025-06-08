@@ -4,10 +4,13 @@
 	color-scheme: light dark;
 	--text-color-contrast: 65%;
 	--link-color-contrast: 75%;
+	--rule-color-contrast: 40%;
 	
 	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
 	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
+	--rule-color: color-mix(in oklab, CanvasText var(--rule-color-contrast), Canvas);
 	--visited-link-color: oklch(50.3% 0.282 295);
+	--rule-width: max(1px, 0.07em);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -66,10 +69,6 @@ body {
 	font-size: [[font-size]]px;
 	-webkit-text-size-adjust: none;
 	overflow-wrap: anywhere;
-}
-
-table {
-	font-size: inherit;
 }
 
 .smallText {
@@ -147,8 +146,6 @@ video {
 }
 
 pre {
-	max-inline-size: 100%;
-	overflow-x: auto;
 	padding-block-end: 1.25em;
 }
 
@@ -200,4 +197,71 @@ Cursed.
 */
 p p {
 	font-size: 120%;
+}
+
+pre,
+.nnw-overflow {
+	padding-block-start: 0.5rem;
+	overflow-x: auto;
+	max-width: 100%;
+	--dot: radial-gradient(
+		circle at center, 
+		var(--text-color) 0, 
+		var(--text-color) 70%,
+		transparent 70%);
+	--d-size: .3rem .3rem;
+	background-color: Canvas;
+	background-image:
+		/* Cover left */
+		linear-gradient(
+			to right, Canvas 50%, transparent
+		),
+		/* Cover right */
+		linear-gradient(
+			to left, Canvas 50%, transparent
+		),
+		/* Dots */
+    	var(--dot),var(--dot),var(--dot),
+    	var(--dot),var(--dot),var(--dot);
+	background-size: 4rem 100%, 4rem 100%, 
+		var(--d-size), var(--d-size), var(--d-size),
+		var(--d-size), var(--d-size), var(--d-size);
+	background-position: left, right, 
+		top left, top left 0.5rem, top left 1rem,
+		top right, top right 0.5rem, top right 1rem;
+	background-repeat: no-repeat;
+	background-attachment: local, local,
+		scroll, scroll, scroll,
+		scroll, scroll, scroll;
+}
+
+table {
+	border-collapse: collapse;
+	font-size: inherit;
+}
+
+th,td {
+	overflow-wrap: normal;
+	border-style: none;
+	border-block-end: var(--rule-width) solid var(--rule-color);
+	text-align: left;
+	
+	&:first-child {
+		text-align: right;
+	}
+	
+	&:not(:last-child) {
+		padding-inline-end: 1em;
+	}
+	
+	thead & {
+		padding-block-end: 1ex;
+		vertical-align: bottom;
+	}
+	
+	tfoot &,
+	tbody & {
+		padding-block: 1ex;
+		vertical-align: top;
+	}
 }
