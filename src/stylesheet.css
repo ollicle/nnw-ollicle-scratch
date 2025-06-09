@@ -250,7 +250,7 @@ th,td {
 	}
 	
 	&:not(:last-child) {
-		padding-inline-end: 1em;
+		padding-inline-end: 2ch;
 	}
 	
 	thead & {
