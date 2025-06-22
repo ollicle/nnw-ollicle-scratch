@@ -8,14 +8,7 @@
 	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
 	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
 	--rule-color: color-mix(in oklab, CanvasText var(--rule-color-contrast), Canvas);
-	--visited-link-color: oklch(50.3% 0.282 295);
 	--rule-width: max(1px, 0.07em);
-}
-
-@media (prefers-color-scheme: dark) {
-	:root {
-		--visited-link-color: oklch(84.1% 0.09855 303);
-	}
 }
 
 body {
@@ -24,10 +17,6 @@ body {
 
 a {
 	color: var(--link-color);
-	
-	&:visited {
-		color: var(--visited-link-color);
-	}
 }
 
 .articleBody {
