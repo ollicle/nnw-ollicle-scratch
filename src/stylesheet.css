@@ -52,6 +52,17 @@ hr:has(+ .external-link a:empty) {
 	display: none;
 }
 
+/* No feed_link */
+
+header a + span,
+header a[href=""] {
+	display: none;
+}
+
+header a[href=""] + span {
+	display: inline;
+}
+
 /* Font sizing */
 
 body {
