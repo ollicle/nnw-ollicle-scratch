@@ -34,10 +34,9 @@ hgroup {
 	font-weight: bold;
 }
 
-hgroup span + span {
-	display: none;
-}
+/* No title */
 
+hgroup span + span,
 hgroup:has(span:empty) span {
 	display: none;
 }
@@ -45,6 +44,8 @@ hgroup:has(span:empty) span {
 hgroup:has(span:empty) span + span {
 	display: inline;
 }
+
+/* No external link */
 
 .external-link a:empty,
 hr:has(+ .external-link a:empty) {
