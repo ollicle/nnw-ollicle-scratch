@@ -11,151 +11,362 @@
 	--rule-width: max(1px, 0.07em);
 }
 
-body {
-	color: var(--text-color);
-}
-
-a {
-	color: var(--link-color);
-}
-
-.articleBody {
-	span[style],
-	div[style]:not([class^="newsfoot"]) {
-		all: revert !important;
-	}
-}
-
-:is(p,div):where(:empty) {
-	display: none;
-}
-
-hgroup {
-	font-weight: bold;
-}
-
-/* No title */
-
-hgroup span + span,
-hgroup:has(span:empty) span {
-	display: none;
-}
-
-hgroup:has(span:empty) span + span {
-	display: inline;
-}
-
-/* No external link */
-
-.external-link a:empty,
-hr:has(+ .external-link a:empty) {
-	display: none;
-}
-
-/* No feed_link */
-
-header a + span,
-header a[href=""] {
-	display: none;
-}
-
-header a[href=""] + span {
-	display: inline;
-}
-
-/* Font sizing */
-
-html {
-	font-size: [[font-size]]px;
-	-webkit-text-size-adjust: none;
-	overflow-wrap: anywhere;
-
-	&:has(main.smallText) {
-		font-size: 90%;
+@layer base {
+	
+	body {
+		color: var(--text-color);
 	}
 	
-	&:has(main.mediumText) {
-		font-size: 100%;
+	a {
+		color: var(--link-color);
 	}
 	
-	&:has(main.largeText) {
-		font-size: 125%;
+	.articleBody {
+		container: measure / inline-size;
+	
+		span[style],
+		div[style]:not([class^="newsfoot"]) {
+			all: revert !important;
+		}
 	}
 	
-	&:has(main.xLargeText) {
-		font-size: 150%;
+	:is(p,div):where(:empty) {
+		display: none;
 	}
 	
-	&:has(main.xxLargeText) {
-		font-size: 200%;
+	hgroup {
+		font-weight: bold;
+	}
+	
+	/* No title */
+	
+	hgroup span + span,
+	hgroup:has(span:empty) span {
+		display: none;
+	}
+	
+	hgroup:has(span:empty) span + span {
+		display: inline;
+	}
+	
+	/* No external link */
+	
+	.external-link a:empty,
+	hr:has(+ .external-link a:empty) {
+		display: none;
+	}
+	
+	/* No feed_link */
+	
+	header a + span,
+	header a[href=""] {
+		display: none;
+	}
+	
+	header a[href=""] + span {
+		display: inline;
+	}
+	
+	/* Font sizing */
+	
+	html {
+		font-family: ui-serif;
+		line-height: 1.5;
+		font-size: [[font-size]]px;
+		-webkit-text-size-adjust: none;
+		overflow-wrap: anywhere;
+		--cap-ratio: calc(1rlh / 1rcap);
+	
+		&:has(main.smallText) {
+			font-size: 90%;
+		}
+		
+		&:has(main.mediumText) {
+			font-size: 100%;
+		}
+		
+		&:has(main.largeText) {
+			font-size: 125%;
+		}
+		
+		&:has(main.xLargeText) {
+			font-size: 150%;
+		}
+		
+		&:has(main.xxLargeText) {
+			font-size: 200%;
+		}
+	}
+	
+	body {
+		/* 1 */
+		--f1-size: calc(1.5rem * var(--cap-ratio));
+		--f1-lh: 2rlh;
+		--f1-start: 0rlh;
+		--f1-end: 1rlh;
+		--f1-hstart: 0.5rlh;
+		--f1-fam: system-ui;
+		--f1-var: "opsz" 50, "wdth" 50;
+		
+		/* 2 */
+		--f2-size: calc(1.5rem * var(--cap-ratio));
+		--f2-lh: 2rlh;
+		--f2-start: 2.5rlh;
+		--f2-end: 1rlh;
+		--f2-hstart: 0.5rlh;
+		--f2-fam: system-ui;
+		--f2-var: "wght" 400, "opsz" 50, "wdth" 50;
+		
+		/* 3 */
+		--f3-size: 160%;
+		--f3-lh: 1rlh;
+		--f3-start: 1rlh;
+		--f3-end: 0.5rlh;
+		--f3-hstart: 0.5rlh;
+		--f3-fam: system-ui;
+		--f3-var: "wght" 550, "opsz" 24, "wdth" 75;
+
+		/* 4 */
+		--f4-size: 145%;
+		--f4-lh: 1rlh;
+		--f4-start: 1rlh;
+		--f4-end: 0.5rlh;
+		--f4-hstart: 0.5rlh;
+		--f4-fam: system-ui;
+		--f4-var: "wght" 400, "opsz" 22, "wdth" 75;
+
+		/* 5 */
+		--f5-size: 120%;
+		--f5-lh: 1rlh;
+		--f5-start: 1rlh;
+		--f5-end: 0.5rlh;
+		--f5-hstart: 0rlh;
+		--f5-fam: inherit;
+		--f5-var: "wght" 550;
+
+		/* 6 */
+		--f6-size: 105%;
+		--f6-lh: 1rlh;
+		--f6-start: 0.75rlh;
+		--f6-end: 0.25rlh;
+		--f6-hstart: 0rlh;
+		--f6-fam: inherit;
+		--f6-var: "wght" 550;
+	}
+	
+	h1 {
+		font-size: var(--f1-size);
+		line-height: var(--f1-lh);
+		font-family: var(--f1-fam);
+		font-variation-settings: var(--f1-var);
+		margin-block-start: 0;
+		text-box-trim: trim-both;
+		text-box-edge: cap alphabetic;
+		--margin-block-end: var(--f1-end);
+	}
+	
+	h2,h3,h4,h5,h6 {
+		font-size: var(--f6-size);
+		line-height: var(--f6-lh);
+		font-family: var(--f6-fam);
+		font-variation-settings: var(--f6-var);
+		--margin-block-start: var(--f6-start);
+		--margin-block-end: var(--f6-end);
+	
+		& + :is(h3,h4,h5,h6) {
+			--margin-block-start: var(--f6-hstart);
+		}
+	}
+	
+	:not(h1,h2,h3,h4,h5,h6) > :is(strong, b) {
+		font-variation-settings: "wght" 500;
+	}
+	
+	ol,
+	ul {
+		> * {
+			margin-block-start: var(--margin-block-start, 0);
+			margin-block-end: var(--start-end, 0);
+		}
+	}
+	
+	p,
+	li {
+		--margin-block-start: 0.25rlh;
+		--margin-block-end: 0.25rlh;
+	}
+	
+	main,
+	main :has(> p) {
+	
+		> * {
+			margin-block-start: var(--margin-block-start, 0.5rlh);
+			margin-block-end: var(--margin-block-end, 0.5rlh);
+		}
+
+	}
+	
+	main {
+		&:has(h3) h2,
+		&:has(h4) h3,
+		&:has(h5) h4,
+		&:has(h6) h5 {
+			font-family: var(--f5-fam);
+			font-size: var(--f5-size);
+			font-variation-settings: var(--f5-var);
+			--margin-block-start: var(--f5-start);
+			--margin-block-end: var(--f5-end);
+		}
+		&:has(h4) h2,
+		&:has(h5) h3,
+		&:has(h6) h4 {
+			font-family: var(--f4-fam);
+			font-size: var(--f4-size);
+			font-variation-settings: var(--f4-var);
+			--margin-block-start: var(--f4-start);
+			--margin-block-end: var(--f4-end);
+			
+			& + :is(h3,h4,h5) {
+				--margin-block-start: var(--f4-hstart);
+			}
+		}
+		&:has(h5) h2,
+		&:has(h6) h3 {
+			font-family: var(--f3-fam);
+			font-size: var(--f3-size);
+			font-variation-settings: var(--f3-var);
+			--margin-block-start: var(--f3-start);
+			--margin-block-end: var(--f3-end);
+
+			& + :is(h3,h4) {
+				--margin-block-start: var(--f3-hstart);
+			}
+		}
+		&:has(h6) h2 {
+			font-family: var(--f2-fam);
+			font-size: var(--f2-size);
+			font-variation-settings: var(--f2-var);
+			--margin-block-start: var(--f2-start);
+			--margin-block-end: var(--f2-end);
+
+			& + h3 {
+				--margin-block-start: var(--f2-hstart);
+			}
+		}
+	}
+	
+
+}
+
+@container measure (width < 24em) {
+	p {
+		--paragraph-indent: 1rem;
+	}
+	
+	li,
+	p {
+		--margin-block-start: 0rlh;
+		--margin-block-end: 0rlh;
 	}
 }
 
-img {
-	max-inline-size: 100%;
-	max-block-size: 100vh;
-	block-size: auto !important;
-	object-fit: contain;
-	object-position: left;
+p:where(:not(:has(:is(img,svg,object,figure,iframe,video)))) {
+	& + & {
+		text-indent: var(--paragraph-indent, 0);
+		
+		* {
+			text-indent: 0;
+		}
+	}
 }
 
-svg {
-	max-inline-size: 100%;
+p:has(:is(img,svg,object,figure,iframe,video)) {
+	text-indent: 0;
+	--margin-block-start: revert-layer;
+	--margin-block-end: revert-layer;
 }
 
-svg:where([viewBox]) {
-	display: block;
-	inline-size: 100%;
-	block-size: auto;
+/* Paragraphs nested by footnote popovers */
+p p {
+	text-indent: 0;
 }
 
-:is(h1,h2,h3,h4,h5,h6) a svg,
-figure:has(img) svg,
-svg:not([width]),
-svg:has(+ :is(a, span)) {
-	display: inline-block;
-	inline-size: 1cap;
-	block-size: 1cap;
-	margin-inline-end: 0.5ch;
-}
+/* Box sizing */
 
-svg:not([fill="none"]) {
-	fill: currentColor;
-}
+@layer base {
+	
+	img {
+		max-inline-size: 100%;
+		max-block-size: 100vh;
+		block-size: auto !important;
+		object-fit: contain;
+		object-position: left;
+	}
+	
+	svg {
+		max-inline-size: 100%;
+	}
+	
+	/* hide most likely broken svg icons */
+	svg:has(> use[href^="#"]:only-child) {
+		display: none;
+	}
+	
+	svg:where([viewBox]) {
+		display: block;
+		inline-size: 100%;
+		block-size: auto;
+	}
+	
+	:is(h1,h2,h3,h4,h5,h6) a svg,
+	figure:has(img) svg,
+	svg:not([width]),
+	svg:has(+ :is(a, span)) {
+		display: inline-block;
+		inline-size: 1cap;
+		block-size: 1cap;
+		margin-inline-end: 0.5ch;
+	}
+	
+	svg:not([fill="none"]) {
+		fill: currentColor;
+	}
+	
+	iframe {
+		border: none;
+		display: block;
+		max-inline-size: 100%;
+	}
+	
+	iframe:not([width][height]),
+	iframe[width="200"][height="113"],
+	iframe[width="480"][height="270"],
+	iframe[width="560"][height="315"],
+	iframe[width="1080"][height="608"] {
+		inline-size: 100%;
+		block-size: auto;
+		aspect-ratio: 16 / 9;
+	}
+	
+	object,
+	video {
+		display: block;
+		inline-size: 100%;
+		block-size: auto;
+	}
+	
+	pre {
+		padding-block-end: 1.25em;
+	}
+	
+	canvas {
+		max-inline-size: 100%;
+	}
+	
+	:root {
+		--footnote-margin: 0.3rem;
+	}
 
-iframe {
-	border: none;
-	display: block;
-	max-inline-size: 100%;
-}
-
-iframe:not([width][height]),
-iframe[width="200"][height="113"],
-iframe[width="480"][height="270"],
-iframe[width="560"][height="315"],
-iframe[width="1080"][height="608"] {
-	inline-size: 100%;
-	block-size: auto;
-	aspect-ratio: 16 / 9;
-}
-
-object,
-video {
-	display: block;
-	inline-size: 100%;
-	block-size: auto;
-}
-
-pre {
-	padding-block-end: 1.25em;
-}
-
-canvas {
-	max-inline-size: 100%;
-}
-
-:root {
-	--footnote-margin: 0.3rem;
 }
 
 .newsfoot-footnote-container {
@@ -167,7 +378,13 @@ a.footnote {
 	color: Canvas;
 	background-color: var(--link-color);
 	margin-inline-start: var(--contained, var(--footnote-margin));
+	font-family: system-ui;
 	font-weight: bold;
+	
+	sup:has(&) {
+		font-size: inherit;
+		vertical-align: baseline;
+	}
 }
 
 /* 1: Overriding NNW core stylesheet */
@@ -175,6 +392,7 @@ a.footnote {
 	padding-inline: 0; /* 1 */
 	border: solid 0.125em currentColor;
 	background-color: Canvas;
+	top: 0.4em;
 }
 
 /* 1: Override :empty rule */
@@ -190,14 +408,6 @@ a.footnote {
 /* 1: Covers the arrow */
 .newsfoot-footnote-popover-inner {
 	background-color: Canvas; /* 1 */
-}
-
-/* 
-Resize of paragraphs in footnote popovers to match body
-Cursed.
-*/
-p p {
-	font-size: 120%;
 }
 
 pre,
@@ -236,33 +446,37 @@ pre,
 		scroll, scroll, scroll;
 }
 
-table {
-	border-collapse: collapse;
-	font-size: inherit;
-}
+@layer base {
+	
+	table {
+		border-collapse: collapse;
+		font-size: inherit;
+	}
+	
+	th,td {
+		overflow-wrap: normal;
+		border-style: none;
+		border-block-end: var(--rule-width) solid var(--rule-color);
+		text-align: left;
+		
+		&:first-child {
+			text-align: right;
+		}
+		
+		&:not(:last-child) {
+			padding-inline-end: 2ch;
+		}
+		
+		thead & {
+			padding-block-end: 1ex;
+			vertical-align: bottom;
+		}
+		
+		tfoot &,
+		tbody & {
+			padding-block: 1ex;
+			vertical-align: top;
+		}
+	}
 
-th,td {
-	overflow-wrap: normal;
-	border-style: none;
-	border-block-end: var(--rule-width) solid var(--rule-color);
-	text-align: left;
-	
-	&:first-child {
-		text-align: right;
-	}
-	
-	&:not(:last-child) {
-		padding-inline-end: 2ch;
-	}
-	
-	thead & {
-		padding-block-end: 1ex;
-		vertical-align: bottom;
-	}
-	
-	tfoot &,
-	tbody & {
-		padding-block: 1ex;
-		vertical-align: top;
-	}
 }
