@@ -338,11 +338,6 @@ p p {
 		max-inline-size: 100%;
 	}
 	
-	/* hide most likely broken svg icons */
-	svg:has(> use[href^="#"]:only-child) {
-		display: none;
-	}
-	
 	svg:where([viewBox]) {
 		display: block;
 		inline-size: 100%;
