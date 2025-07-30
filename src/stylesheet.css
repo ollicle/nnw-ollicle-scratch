@@ -5,8 +5,10 @@
 	--text-color-contrast: 65%;
 	--link-color-contrast: 75%;
 	--rule-color-contrast: 40%;
+	--overlay-color-contrast: 10%;
 	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
 	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
+	--overlay-color: color-mix(in oklab, CanvasText var(--overlay-color-contrast), Canvas);
 	--rule-color: color-mix(in oklab, CanvasText var(--rule-color-contrast), Canvas);
 	--rule-width: max(1px, 0.07em);
 }
@@ -294,6 +296,35 @@ p p {
 /* Box sizing */
 
 @layer base {
+
+	figure {
+		margin-inline: 0;
+		
+		> :not(figcaption, :has(+ figcaption)) {
+			margin-block: 0.25rlh;
+		}
+		
+		> *:first-child {
+			background-color: var(--overlay-color);
+		}
+	}
+	
+	figcaption {
+		border-inline-start: solid 1ch var(--rule-color);
+		padding-block-start: 0.75rlh;
+		padding-inline-start: 0.75rlh;
+		text-align: start !important;
+		text-box-trim: trim-start;
+		text-box-edge: cap alphabetic;
+		
+		> *:first-child {
+			margin-block-start: 0;
+		}
+		
+		> *:last-child {
+			margin-block-end: 0;
+		}
+	}
 	
 	img {
 		max-inline-size: 100%;
