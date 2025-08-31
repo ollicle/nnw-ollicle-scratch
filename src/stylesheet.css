@@ -5,12 +5,14 @@
 	--text-color-contrast: 65%;
 	--link-color-contrast: 75%;
 	--rule-color-contrast: 40%;
+	--heavy-rule-color-contrast: 20%;
 	--overlay-color-contrast: 10%;
 	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
 	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
 	--overlay-color: color-mix(in oklab, CanvasText var(--overlay-color-contrast), Canvas);
 	--rule-color: color-mix(in oklab, CanvasText var(--rule-color-contrast), Canvas);
-	--rule-width: max(1px, 0.07em);
+	--heavy-rule-color: color-mix(in oklab, CanvasText var(--heavy-rule-color-contrast), Canvas);
+	--rule-width: max(1px, 0.07rem);
 }
 
 @layer base {
@@ -307,31 +309,45 @@ p p {
 	}
 
 	figure {
+		--blockquote-extension: 0.5rlh;
 		margin-inline: 0;
 		
-		> :not(figcaption, :has(+ figcaption)) {
-			margin-block: 0.25rlh;
+		&:has(> figcaption):not(:has(blockquote)) {
+			--figcaption-box-trim: trim-both cap alphabetic;
+			--figcaption-box-padding: 0.75rlh;
+			border-inline-start: solid 1ch var(--heavy-rule-color);
+		}
+		&:has(> figcaption) {
+			> blockquote {
+				margin-block: 0;
+			}
+		
+			> :is(a,img,picture,svg,object) {
+				display: block;
+				width: fit-content;
+				background-color: var(--overlay-color);
+			}
 		}
 		
-		> *:first-child {
-			background-color: var(--overlay-color);
+		> * + :not(figcaption) {
+			margin-block-start: 0.25rlh;
 		}
 	}
 	
 	figcaption {
-		border-inline-start: solid 1ch var(--rule-color);
-		padding-block-start: 0.75rlh;
-		padding-inline-start: 0.75rlh;
+		padding-block-start: var(--figcaption-box-padding, 0);
+		padding-block-end: var(--figcaption-box-padding, 0);
+		padding-inline-start: var(--figcaption-box-padding, 0);
+		text-box: var(--figcaption-box-trim, normal);
 		text-align: start !important;
-		text-box-trim: trim-start;
-		text-box-edge: cap alphabetic;
 		
 		> *:first-child {
 			margin-block-start: 0;
 		}
 		
 		> *:last-child {
-			margin-block-end: 0;		}
+			margin-block-end: 0;
+		}
 	}
 	
 	img {
@@ -522,4 +538,47 @@ pre,
 		}
 	}
 
+}
+
+blockquote {
+	position: relative;
+	margin-inline: 0;
+	margin-trim: block;
+	padding-inline-start: 1.25rlh;
+	
+	padding-block-end: var(--blockquote-extension, 0);
+	
+	&::after {
+		position: absolute;
+		inset-block-start: 0.25rlh;
+		inset-inline-start: 0rch;
+		content: "“";
+		font-size: 250%;
+		font-weight: bold;
+		text-box: trim-both cap alphabetic;
+	}
+	
+	&::before {
+		content: "";
+		position: absolute;
+		inset-block-start: 1rlh;
+		inset-block-end: 0.15rlh;
+		inset-inline-start: 0rch;
+		inset-inline-end: calc(100% - 1rch);
+		background-color: var(--rule-color);
+		
+		/* Thanks! https://css-shape.com/wavy-line/ */
+		--s: 0.12rlh; /* size of the wave */
+		--b: calc(round(var(--rule-width) * 2, 1px)); /* thickness of the line */
+		--m: 0.8; /* curvature of the wave [0 2] */
+		
+		--R: calc(var(--s)*sqrt(var(--m)*var(--m) + 1) + var(--b)/2);
+		width: calc(2*var(--R));
+		--_g: #0000 calc(99% - var(--b)), #000 calc(101% - var(--b)) 99%, #0000 101%;
+		mask:
+		radial-gradient(var(--R) at top 50% right calc(-1*var(--m)*var(--s)), var(--_g)) 
+		 calc(50% - var(--s)/2 - var(--b)/2) calc(50% - 2*var(--s))/calc(var(--s) + var(--b)) calc(4*var(--s)) repeat-y,
+		radial-gradient(var(--R) at top 50% left calc(-1*var(--m)*var(--s)),var(--_g)) 
+		 calc(50% + var(--s)/2 + var(--b)/2) 50%/calc(var(--s) + var(--b)) calc(4*var(--s)) repeat-y;
+	}
 }
