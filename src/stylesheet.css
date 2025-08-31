@@ -385,6 +385,15 @@ p p {
 		block-size: auto;
 	}
 	
+	pre, xmp, plaintext, tt, code, kbd, samp {
+		font-family: ui-monospace;
+		font-size: 85%;
+		
+		& & {
+			font-size: 100%;
+		}
+	}
+	
 	pre {
 		padding-block-end: 1.25em;
 	}
