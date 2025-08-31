@@ -120,22 +120,22 @@
 		--f2-var: "wght" 400, "opsz" 50, "wdth" 50;
 		
 		/* 3 */
-		--f3-size: 160%;
-		--f3-lh: 1rlh;
+		--f3-size: 200%;
+		--f3-lh: 1.5rlh;
 		--f3-start: 1rlh;
 		--f3-end: 0.5rlh;
 		--f3-hstart: 0.5rlh;
 		--f3-fam: system-ui;
-		--f3-var: "wght" 550, "opsz" 24, "wdth" 75;
+		--f3-var: "wght" 500, "opsz" 32, "wdth" 75;
 
 		/* 4 */
-		--f4-size: 145%;
-		--f4-lh: 1rlh;
+		--f4-size: 170%;
+		--f4-lh: 1.5rlh;
 		--f4-start: 1rlh;
 		--f4-end: 0.5rlh;
 		--f4-hstart: 0.5rlh;
 		--f4-fam: system-ui;
-		--f4-var: "wght" 400, "opsz" 22, "wdth" 75;
+		--f4-var: "wght" 400, "opsz" 27, "wdth" 75;
 
 		/* 5 */
 		--f5-size: 120%;
@@ -215,6 +215,7 @@
 		&:has(h6) h5 {
 			font-family: var(--f5-fam);
 			font-size: var(--f5-size);
+			line-height: var(--f5-lh);
 			font-variation-settings: var(--f5-var);
 			--margin-block-start: var(--f5-start);
 			--margin-block-end: var(--f5-end);
@@ -224,6 +225,7 @@
 		&:has(h6) h4 {
 			font-family: var(--f4-fam);
 			font-size: var(--f4-size);
+			line-height: var(--f4-lh);
 			font-variation-settings: var(--f4-var);
 			--margin-block-start: var(--f4-start);
 			--margin-block-end: var(--f4-end);
@@ -236,6 +238,7 @@
 		&:has(h6) h3 {
 			font-family: var(--f3-fam);
 			font-size: var(--f3-size);
+			line-height: var(--f3-lh);
 			font-variation-settings: var(--f3-var);
 			--margin-block-start: var(--f3-start);
 			--margin-block-end: var(--f3-end);
@@ -247,14 +250,14 @@
 		&:has(h6) h2 {
 			font-family: var(--f2-fam);
 			font-size: var(--f2-size);
+			line-height: var(--f2-lh);
 			font-variation-settings: var(--f2-var);
 			--margin-block-start: var(--f2-start);
 			--margin-block-end: var(--f2-end);
 
 			& + h3 {
 				--margin-block-start: var(--f2-hstart);
-			}
-		}
+			}		}
 	}
 	
 
