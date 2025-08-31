@@ -198,6 +198,16 @@
 		--margin-block-end: 0.25rlh;
 	}
 	
+	p:not(:has(:is(img,svg,object,figure,iframe,video))) {
+		& + & {
+			text-indent: var(--paragraph-indent, 0);
+			
+			* {
+				text-indent: 0;
+			}
+		}
+	}
+	
 	main,
 	main :has(> p) {
 	
@@ -257,7 +267,8 @@
 
 			& + h3 {
 				--margin-block-start: var(--f2-hstart);
-			}		}
+			}
+		}
 	}
 	
 
@@ -272,16 +283,6 @@
 	p {
 		--margin-block-start: 0rlh;
 		--margin-block-end: 0rlh;
-	}
-}
-
-p:where(:not(:has(:is(img,svg,object,figure,iframe,video)))) {
-	& + & {
-		text-indent: var(--paragraph-indent, 0);
-		
-		* {
-			text-indent: 0;
-		}
 	}
 }
 
