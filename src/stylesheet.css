@@ -5,7 +5,7 @@
 	--text-color-contrast: 65%;
 	--link-color-contrast: 75%;
 	--rule-color-contrast: 40%;
-	--heavy-rule-color-contrast: 20%;
+	--heavy-rule-color-contrast: 25%;
 	--overlay-color-contrast: 10%;
 	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
 	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
@@ -55,8 +55,7 @@
 	
 	/* No external link */
 	
-	.external-link a:empty,
-	hr:has(+ .external-link a:empty) {
+	body > aside:has(a:empty) {
 		display: none;
 	}
 	
@@ -75,7 +74,8 @@
 	
 	html {
 		font-family: ui-serif;
-		line-height: 1.5;
+		--my-lh: round(nearest, calc(1em + 1.5vw), 2px);
+		line-height: var(--my-lh);
 		font-size: [[font-size]]px;
 		-webkit-text-size-adjust: none;
 		overflow-wrap: anywhere;
@@ -194,6 +194,30 @@
 		}
 	}
 	
+	ul {
+		padding-inline-start: 0;
+		
+		> li {
+			position: relative;
+			list-style-type: "";
+			
+			&::before {
+				content: var(--list-bullet, "•");
+				position: absolute;
+				left: calc(var(--dot-indent, 1rlh) * -1);
+				inline-size: var(--dot-indent, 1rlh);
+				text-align: var(--dot-align, center);
+			}
+		}
+		
+		ul {
+			--dot-indent: 0.5rlh;
+			--dot-align: left;
+			--list-bullet: "–";
+			padding-inline-start: var(--dot-indent);
+		}
+	}
+	
 	p,
 	li {
 		--margin-block-start: 0.25rlh;
@@ -304,8 +328,25 @@ p p {
 @layer base {
 
 	body {
-		padding: 1rlh;
+		display: grid;
+		grid-template-columns: 0fr 1fr 0fr;
+		grid-template-rows: auto 1fr auto;
+		grid-template-areas:
+			". header ."
+			". main ."
+			"link link link"
+		;
+		column-gap: 1rlh;
+		padding-block: 1rlh;
 		margin: 0;
+	}
+	
+	header {
+		grid-area: header;
+	}
+	
+	main {
+		grid-area: main;
 	}
 
 	figure {
@@ -324,7 +365,8 @@ p p {
 		
 			> :is(a,img,picture,svg,object) {
 				display: block;
-				width: fit-content;
+				inline-size: fit-content;
+				max-inline-size: 100%;
 				background-color: var(--overlay-color);
 			}
 		}
@@ -394,7 +436,7 @@ p p {
 	iframe[width="560"][height="315"],
 	iframe[width="1080"][height="608"] {
 		inline-size: 100%;
-		block-size: auto;
+		block-size: auto !important;
 		aspect-ratio: 16 / 9;
 	}
 	
@@ -422,10 +464,51 @@ p p {
 		max-inline-size: 100%;
 	}
 	
+	main aside {
+		box-sizing: border-box;
+		inline-size: round(down, 100%, var(--my-lh) * 0.5);
+		padding: calc(var(--my-lh) * 0.5);
+		border: solid calc(var(--my-lh) * 0.5) transparent;
+		background-clip:
+			padding-box,
+			border-box;
+		background-image:
+			linear-gradient(Canvas),
+			radial-gradient(circle at center, var(--rule-color) 40%, transparent 39%);
+		background-position: top left;
+		background-size:
+			auto auto,
+			calc(var(--my-lh) * 0.25) calc(var(--my-lh) * 0.25);
+		
+		> * {
+			&:first-child {
+				margin-block-start: 0;
+			}
+			&:last-child {
+				margin-block-end: 0;
+			}
+		}
+	}
+	
+	body > aside {
+		margin-block-start: 1rlh;
+		margin-inline: 0.75rlh;
+		grid-area: link;
+		justify-self: start;
+		
+		a {
+			padding-inline: 0.25rlh;
+			-webkit-box-decoration-break: clone;
+			line-height: 1.4;
+			background-color: Canvas;
+			filter: url("#smooth_outline");
+			text-decoration: none;
+		}
+	}
+
 	:root {
 		--footnote-margin: 0.3rem;
 	}
-
 }
 
 .newsfoot-footnote-container {
@@ -510,6 +593,7 @@ pre,
 	table {
 		border-collapse: collapse;
 		font-size: inherit;
+		line-height: inherit;
 	}
 	
 	th,td {
@@ -544,13 +628,16 @@ blockquote {
 	position: relative;
 	margin-inline: 0;
 	margin-trim: block;
+	padding-block-end: var(--blockquote-extension, 0);
 	padding-inline-start: 1.25rlh;
 	
-	padding-block-end: var(--blockquote-extension, 0);
+	&:has(> ul:first-child) {
+		padding-inline-start: 1.75rlh;
+	}
 	
 	&::after {
 		position: absolute;
-		inset-block-start: 0.25rlh;
+		inset-block-start: 0.325rlh;
 		inset-inline-start: 0rch;
 		content: "“";
 		font-size: 250%;
@@ -573,7 +660,7 @@ blockquote {
 		--m: 0.8; /* curvature of the wave [0 2] */
 		
 		--R: calc(var(--s)*sqrt(var(--m)*var(--m) + 1) + var(--b)/2);
-		width: calc(2*var(--R));
+		inline-size: calc(2*var(--R));
 		--_g: #0000 calc(99% - var(--b)), #000 calc(101% - var(--b)) 99%, #0000 101%;
 		mask:
 		radial-gradient(var(--R) at top 50% right calc(-1*var(--m)*var(--s)), var(--_g)) 
@@ -581,4 +668,17 @@ blockquote {
 		radial-gradient(var(--R) at top 50% left calc(-1*var(--m)*var(--s)),var(--_g)) 
 		 calc(50% + var(--s)/2 + var(--b)/2) 50%/calc(var(--s) + var(--b)) calc(4*var(--s)) repeat-y;
 	}
+}
+
+#scratch_filters {
+	position: absolute;
+}
+
+feFlood {
+	flood-opacity: 0.4;
+}
+
+.systemMessage {
+	grid-area: main;
+	margin: auto;
 }

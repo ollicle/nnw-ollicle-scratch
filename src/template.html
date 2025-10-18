@@ -9,6 +9,21 @@
 		<p><span>[[datetime_medium]]</span><span>[[time_short]]</span></p>
 	</hgroup>
 	<div class="articleBody">[[body]]</div>
-	<hr>
-	<p class="external-link">[[external_link_label]] <a href="[[external_link]]">[[external_link_stripped]]</a></p>
 </main>
+<aside aria-label="[[external_link_label]]">
+	<a href="[[external_link]]">[[external_link_stripped]]</a>
+</aside>
+<svg id="scratch_filters" width="0" height="0" color-interpolation-filters="sRGB">
+<defs>
+<filter id="smooth_outline" x="-10%" y="-75%" width="120%" height="250%">
+<feMorphology in="SourceAlpha" operator="dilate" radius="10" result="DILATED1"></feMorphology>
+	<feGaussianBlur in="DILATED1" stdDeviation="6" result="BLURRED"></feGaussianBlur>
+		<feColorMatrix in="BLURRED" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="GOOED"></feColorMatrix>
+			<feMorphology in="GOOED" operator="dilate" radius="1" result="DILATED2"></feMorphology>
+			<feComposite in="DILATED2" in2="GOOED" operator="out" result="OUTLINED"></feComposite>
+	<feFlood flood-color="CanvasText" result="COLOR"></feFlood>
+		<feComposite in="COLOR" in2="OUTLINED" operator="in" result="COLOURED"></feComposite>
+			<feBlend in="SourceGraphic" in2="COLOURED" mode="overlay" />
+</filter>
+</defs>
+</svg>
