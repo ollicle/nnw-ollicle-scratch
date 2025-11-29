@@ -4,12 +4,16 @@
 	color-scheme: light dark;
 	--text-color-contrast: 65%;
 	--link-color-contrast: 75%;
+	--fine-rule-color-contrast: 50%;
 	--rule-color-contrast: 40%;
-	--heavy-rule-color-contrast: 25%;
+	--heavy-rule-color-contrast: 30%;
+	--icon-color-contrast: 40%;
 	--overlay-color-contrast: 10%;
 	--text-color: color-mix(in oklab, CanvasText var(--text-color-contrast), Canvas);
 	--link-color: color-mix(in oklab, CanvasText var(--link-color-contrast), Canvas);
+	--icon-color: color-mix(in oklab, CanvasText var(--icon-color-contrast), Canvas);
 	--overlay-color: color-mix(in oklab, CanvasText var(--overlay-color-contrast), Canvas);
+	--fine-rule-color: color-mix(in oklab, CanvasText var(--fine-rule-color-contrast), Canvas);
 	--rule-color: color-mix(in oklab, CanvasText var(--rule-color-contrast), Canvas);
 	--heavy-rule-color: color-mix(in oklab, CanvasText var(--heavy-rule-color-contrast), Canvas);
 	--rule-width: max(1px, 0.07rem);
@@ -23,6 +27,13 @@
 	
 	a {
 		color: var(--link-color);
+		text-underline-offset: var(--underline-offset, 15%);
+		text-decoration-line: var(--decoration-line, underline);
+		text-decoration-color: var(--decoration-color, var(--fine-rule-color));
+		
+		&:hover {
+			text-decoration-color: inherit;
+		}
 	}
 	
 	.articleBody {
@@ -30,7 +41,7 @@
 	
 		span[style],
 		div[style]:not([class^="newsfoot"]) {
-			all: revert !important;
+			all: inherit !important;
 		}
 	}
 	
@@ -40,6 +51,29 @@
 	
 	hgroup {
 		font-weight: bold;
+	}
+	
+	hgroup h1 a {
+		&:hover {
+			--title-link-shift: -0.2ch;
+		}
+		&:active {
+			--title-link-shift: 0.2ch;
+			--icon-color: var(--link-color);
+		}
+		
+		i {
+			font-style: normal;
+			white-space: nowrap;
+			color: var(--icon-color);
+			
+			&::after {
+				content: "❭";
+				display: inline-block;
+				translate: var(--title-link-shift, 0ch);
+				transition: all 0.2s ease-out;
+			}
+		}
 	}
 	
 	/* No title */
@@ -61,13 +95,43 @@
 	
 	/* No feed_link */
 	
-	header a + span,
-	header a[href=""] {
-		display: none;
-	}
+	body > header {
+		grid-area: header;
+		display: grid;
+		grid-template-columns: max-content 1fr;
+		grid-template-rows: min-content 1fr;
+		grid-template-areas: "fav title" "fav byline";
+		row-gap: 0.25rlh;
+		column-gap: 0.5rlh;
+		margin-block-end: 1.5rlh;
+		font-family: system-ui;
+		
+		&:has(.byline:not(:empty)) h2 {
+			font-variation-settings: "wght" 500, "wdth" 80, "opsz" 12;
+			font-size: 80%;
+			text-transform: uppercase;
+			letter-spacing: 3%;
+			text-box-trim: trim-both;
+			text-box-edge: cap alphabetic;
+			margin-block-start: 0.25lh;
+		}
+		
+		> * {
+			margin: 0;
+		}
+		
+		> img {
+			grid-area: fav;
+		}
 	
-	header a[href=""] + span {
-		display: inline;
+		a + span,
+		a[href=""] {
+			display: none;
+		}
+		
+		a[href=""] + span {
+			display: inline;
+		}
 	}
 	
 	/* Font sizing */
@@ -167,6 +231,7 @@
 		text-box-trim: trim-both;
 		text-box-edge: cap alphabetic;
 		--margin-block-end: var(--f1-end);
+		--decoration-line: none;
 	}
 	
 	h2,h3,h4,h5,h6 {
@@ -176,6 +241,7 @@
 		font-variation-settings: var(--f6-var);
 		--margin-block-start: var(--f6-start);
 		--margin-block-end: var(--f6-end);
+		--underline-offset: 10.5%;
 	
 		& + :is(h3,h4,h5,h6) {
 			--margin-block-start: var(--f6-hstart);
@@ -297,7 +363,12 @@
 		}
 	}
 	
-
+	hr {
+		--margin-block-start: 1.75rlh;
+		border: dotted var(--heavy-rule-color) 0.25rlh;
+		border-block-start-style: none;
+	}  
+	 
 }
 
 @container measure (width < 24em) {
@@ -339,10 +410,6 @@ p p {
 		column-gap: 1rlh;
 		padding-block: 1rlh;
 		margin: 0;
-	}
-	
-	header {
-		grid-area: header;
 	}
 	
 	main {
