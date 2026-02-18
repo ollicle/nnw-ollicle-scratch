@@ -139,7 +139,7 @@
 	
 	html {
 		font-family: ui-serif;
-		--my-lh: round(nearest, calc(1em + 1.5vw), 2px);
+		--my-lh: round(nearest, calc(1.2em + 1.4vw), 2px);
 		line-height: var(--my-lh);
 		font-size: [[font-size]]px;
 		-webkit-text-size-adjust: none;
