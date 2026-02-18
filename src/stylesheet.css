@@ -41,7 +41,7 @@
 	
 		span[style],
 		div[style]:not([class^="newsfoot"]) {
-			all: inherit !important;
+			width: unset !important;
 		}
 	}
 	
