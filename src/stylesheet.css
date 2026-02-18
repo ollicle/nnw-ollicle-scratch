@@ -105,6 +105,7 @@
 		column-gap: 0.5rlh;
 		margin-block-end: 1.5rlh;
 		font-family: system-ui;
+		line-height: 1.5;
 		
 		&:has(.byline:not(:empty)) h2 {
 			font-variation-settings: "wght" 500, "wdth" 80, "opsz" 12;
