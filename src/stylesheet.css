@@ -400,12 +400,12 @@ p p {
 
 	body {
 		display: grid;
-		grid-template-columns: 0fr 1fr 0fr;
+		grid-template-columns: auto minmax(0, 24rlh) auto;
 		grid-template-rows: auto 1fr auto;
 		grid-template-areas:
 			". header ."
 			". main ."
-			"link link link"
+			". link ."
 		;
 		column-gap: 1rlh;
 		padding-block: 1rlh;
@@ -559,7 +559,7 @@ p p {
 	
 	body > aside {
 		margin-block-start: 1rlh;
-		margin-inline: 0.75rlh;
+		margin-inline: -0.25rlh;
 		grid-area: link;
 		justify-self: start;
 		
