@@ -39,6 +39,7 @@
 	.articleBody {
 		container: measure / inline-size;
 	
+		hanging-punctuation: first;
 	
 		&:not(:has(:is(h1,h2,h3,h4)) ) {
 			.has-title-only,
@@ -119,8 +120,7 @@
 		&:has(.byline:not(:empty)) h2 {
 			font-variation-settings: "wght" 500, "wdth" 80, "opsz" 12;
 			font-size: 80%;
-			text-transform: uppercase;
-			letter-spacing: 3%;
+			text-transform: uppercase;			letter-spacing: 3%;
 			text-box-trim: trim-both;
 			text-box-edge: cap alphabetic;
 			margin-block-start: 0.25lh;
@@ -442,16 +442,16 @@ p p {
 			--figcaption-box-padding: 0.75rlh;
 			border-inline-start: solid 1ch var(--heavy-rule-color);
 		}
+		
 		&:has(> figcaption) {
-			> blockquote {
+			> blockquote:first-child {
 				margin-block: 0;
 			}
 		
 			> :is(a,img,picture,svg,object) {
 				display: block;
 				inline-size: fit-content;
-				max-inline-size: 100%;
-				background-color: var(--overlay-color);
+				max-inline-size: 100%;				background-color: var(--overlay-color);
 			}
 		}
 		
@@ -534,14 +534,14 @@ p p {
 	pre, xmp, plaintext, tt, code, kbd, samp {
 		font-family: ui-monospace;
 		font-size: 85%;
+		hanging-punctuation: none;
 		
 		& & {
 			font-size: 100%;
 		}
 	}
 	
-	pre {
-		padding-block-end: 1.25em;
+	pre {		padding-block-end: 1.25em;
 	}
 	
 	canvas {
