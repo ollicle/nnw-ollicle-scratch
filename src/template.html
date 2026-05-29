@@ -4,10 +4,10 @@
 	<p class="byline">[[byline]]</p>
 </header>
 <main class="[[text_size_class]]">
-	<hgroup class="[[dateline_style]]">
-		<h1><a href="[[preferred_link]]"><span><span>[[title]]</span><i>&#65279;</i></span><span>[[date_medium]]</span></a></h1>
-		<p><span>[[datetime_medium]]</span><span>[[time_short]]</span></p>
-	</hgroup>
+	<re-title class="[[dateline_style]]" >
+		<h1><a href="[[preferred_link]]"><span>[[title]]</span><span>[[datetime_medium]]</span><i>&#65279;</i></a></h1>
+		<p>[[datetime_medium]]</p>
+	</re-title>
 	<div class="articleBody">[[body]]</div>
 </main>
 <aside aria-label="[[external_link_label]]">
@@ -27,3 +27,105 @@
 </filter>
 </defs>
 </svg>
+<script type="module">
+
+const SHORT_TITLE_LENGTH = 50;
+const LONG_TITLE_LENGTH = 100;
+const SHORT_CONTENT_LENGTH = 500;
+
+class ReTitle extends HTMLElement {
+	connectedCallback() {
+	
+		this.has = {
+			ellipsisTitle: this.titleHasEllipsis(),
+			shortTitle: this.title.length < SHORT_TITLE_LENGTH,
+			longTitle: this.title.length > LONG_TITLE_LENGTH,
+			shortContent: this.articleBody.length < SHORT_CONTENT_LENGTH,
+			titleMatchesContent: this.titleMatchesContent(),
+			contentStartIncludesTitle: this.contentStartIncludesTitle(),
+			titleAlmostContentLength: this.titleAlmostContentLength(),
+			titleOnly: this.normalise(this.articleBody).length === 0
+		};
+
+		const variantClasses = [
+			this.has.longTitle ? "is-long-title" : "",
+			this.has.shortContent ? "is-short-content" : "",
+			this.has.titleOnly ? "has-title-only" : ""
+		].filter(x => x);
+		
+		if (variantClasses.length) {
+			document.body.classList.add(...variantClasses);
+		}
+		
+		if (
+			this.has.titleMatchesContent ||
+			this.has.titleAlmostContentLength && this.has.contentStartIncludesTitle ||
+			this.has.contentStartIncludesTitle && this.has.shortContent && 
+			(!this.has.shortTitle || this.has.ellipsisTitle)
+		) {
+			this.applyDatelineTitle();
+		}
+		
+		if (this.has.titleOnly) {
+			this.articleBody = this.title;
+			this.applyDatelineTitle();
+		}
+	}
+	
+	get titleEl() {
+		return this.querySelector("h1 a");
+	}
+	get title() {
+		return this.titleEl.firstChild.textContent;
+	}
+	get articleBody() {
+		return document.querySelector(".articleBody").textContent;
+	}
+	set articleBody(text) {
+		const container = document.querySelector(".articleBody");
+		const paragraph = document.createElement("p");
+		paragraph.textContent = text;
+		this.removeAllChildren(container);
+		container.append(paragraph);
+	}
+	
+	removeAllChildren(element) {
+		while (element.firstChild) {
+			element.removeChild(element.firstChild);
+		}
+	}
+	
+	titleMatchesContent() {
+		return this.normalise(this.articleBody) === this.normalise(this.title);
+	}
+	
+	contentStartIncludesTitle() {
+		return this.normalise(this.articleBody).substring(0, SHORT_CONTENT_LENGTH)
+			.includes(this.normalise(this.title));
+	}
+	
+	titleAlmostContentLength() {
+		const title = this.normalise(this.title);
+		const content = this.normalise(this.articleBody);
+		if (!title.length || !content.length) return false;
+		const ratio = title.length / content.length;
+		return ratio > 0.5 && ratio <= 1;
+	}
+	
+	titleHasEllipsis() {
+		return this.title.endsWith("…") || this.title.endsWith("...");
+	}
+	
+	normalise(text) {
+		return text.normalize("NFC").replaceAll(/[\s\-–—#•*+_,….!'"“”‘’<>()\[\]\/]/g,"");
+	}
+	
+	applyDatelineTitle() {
+		this.classList.replace("articleDateline", "articleDatelineTitle");
+	}
+	
+}
+
+customElements.define("re-title", ReTitle);
+
+</script>

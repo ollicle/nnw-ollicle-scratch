@@ -60,16 +60,17 @@
 		display: none;
 	}
 	
-	hgroup {
+	re-title {
+		display: block;
 		font-weight: bold;
 	}
 	
-	hgroup h1 a {
+	re-title h1 a {
 		&:hover {
-			--title-link-shift: -0.2ch;
+			--title-link-arrow-shift: -0.2ch;
 		}
 		&:active {
-			--title-link-shift: 0.2ch;
+			--title-link-arrow-shift: 0.2ch;
 			--icon-color: var(--link-color);
 		}
 		
@@ -79,23 +80,37 @@
 			color: var(--icon-color);
 			
 			&::after {
-				content: "❭";
+				content: var(--title-link-arrow, "❭");
 				display: inline-block;
-				translate: var(--title-link-shift, 0ch);
-				transition: all 0.2s ease-out;
+				translate: var(--title-link-arrow-shift, 0ch);
+				translate: calc(
+					var(--title-link-arrow-shift, 0ch) +
+					var(--title-link-arrow-offset, 0ch)
+				);
+				transition: translate 0.2s ease-out;
 			}
 		}
 	}
 	
-	/* No title */
+	/* Has title */
+	.articleDateline {
 	
-	hgroup span + span,
-	hgroup:has(span:empty) span {
-		display: none;
+		/* Hide datetime title */
+		span + span {
+			display: none;
+		}
 	}
 	
-	hgroup:has(span:empty) span + span {
-		display: inline;
+	/* No title */
+	.articleDatelineTitle {
+
+		/* datetime title displayed instead */
+		span:first-child {
+			display: none;
+		}
+		p {
+			display: none;
+		}
 	}
 	
 	/* No external link */
@@ -127,16 +142,14 @@
 		}
 		
 		> * {
-			margin: 0;
-		}
+			margin: 0;		}
 		
 		> img {
 			grid-area: fav;
 		}
 	
 		a + span,
-		a[href=""] {
-			display: none;
+		a[href=""] {			display: none;
 		}
 		
 		a[href=""] + span {
@@ -242,6 +255,18 @@
 		text-box-edge: cap alphabetic;
 		--margin-block-end: var(--f1-end);
 		--decoration-line: none;
+	}
+	
+	.articleDatelineTitle h1 {
+		font-size: var(--f6-size);
+		line-height: var(--f6-lh);
+		font-family: var(--f6-fam);
+		font-variation-settings: var(--f6-var);
+		margin-block-start: 0;
+		--margin-block-end: var(--f6-end);
+		--decoration-line: none;
+		--title-link-arrow-offset: 0.2ch;
+		--title-link-arrow: "❱";
 	}
 	
 	h2,h3,h4,h5,h6 {
