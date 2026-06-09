@@ -54,11 +54,11 @@ class ReTitle extends HTMLElement {
 			ellipsisTitle: this.titleHasEllipsis(),
 			shortTitle: this.title.length < SHORT_TITLE_LENGTH,
 			longTitle: this.title.length > LONG_TITLE_LENGTH,
-			shortContent: this.articleBody.length < SHORT_CONTENT_LENGTH,
+			shortContent: this.articleBodyText.length < SHORT_CONTENT_LENGTH,
 			titleMatchesContent: this.titleMatchesContent(),
 			contentStartIncludesTitle: this.contentStartIncludesTitle(),
 			titleAlmostContentLength: this.titleAlmostContentLength(),
-			titleOnly: this.normalise(this.articleBody).length === 0
+			titleOnly: this.hasTitleOnly()
 		};
 
 		const variantClasses = [
@@ -81,7 +81,7 @@ class ReTitle extends HTMLElement {
 		}
 		
 		if (this.has.titleOnly) {
-			this.articleBody = this.title;
+			this.articleBodyText = this.title;
 			this.applyDatelineTitle();
 		}
 	}
@@ -92,10 +92,10 @@ class ReTitle extends HTMLElement {
 	get title() {
 		return this.titleEl.firstChild.textContent;
 	}
-	get articleBody() {
+	get articleBodyText() {
 		return document.querySelector(".articleBody").textContent;
 	}
-	set articleBody(text) {
+	set articleBodyText(text) {
 		const container = document.querySelector(".articleBody");
 		const paragraph = document.createElement("p");
 		paragraph.textContent = text;
@@ -109,18 +109,24 @@ class ReTitle extends HTMLElement {
 		}
 	}
 	
+	hasTitleOnly() {
+		const text = this.normalise(this.articleBodyText);
+		const elementCount = document.querySelector(".articleBody").children.length;
+		return text.length === 0 && elementCount === 0;
+	}
+	
 	titleMatchesContent() {
-		return this.normalise(this.articleBody) === this.normalise(this.title);
+		return this.normalise(this.articleBodyText) === this.normalise(this.title);
 	}
 	
 	contentStartIncludesTitle() {
-		return this.normalise(this.articleBody).substring(0, SHORT_CONTENT_LENGTH)
+		return this.normalise(this.articleBodyText).substring(0, SHORT_CONTENT_LENGTH)
 			.includes(this.normalise(this.title));
 	}
 	
 	titleAlmostContentLength() {
 		const title = this.normalise(this.title);
-		const content = this.normalise(this.articleBody);
+		const content = this.normalise(this.articleBodyText);
 		if (!title.length || !content.length) return false;
 		const ratio = title.length / content.length;
 		return ratio > 0.5 && ratio <= 1;
