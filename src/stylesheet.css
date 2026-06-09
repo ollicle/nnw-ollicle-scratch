@@ -535,13 +535,13 @@ p p {
 		block-size: auto;
 	}
 	
-	:is(h1,h2,h3,h4,h5,h6) a svg,
+	:is(h1,h2,h3,h4,h5,h6) svg,
 	figure:has(img) svg,
 	:not(figure) > svg:not([width]),
 	svg:has(+ :is(a, span)) {
 		display: inline-block;
-		inline-size: 1cap;
-		block-size: 1cap;
+		inline-size: 1em;
+		block-size: 1em;
 		margin-inline-end: 0.5ch;
 	}
 	
