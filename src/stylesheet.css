@@ -811,6 +811,26 @@ blockquote {
 }
 
 .systemMessage {
+	--ding-size: 3rlh;
+	--ding: random(0,221,1);
 	grid-area: main;
 	margin: auto;
+	text-align: center;
+	display: grid;
+	grid-template-rows: var(--ding-size) auto;
+	justify-items: center;
+	gap: 0.5em;
+	overflow: clip;
+	
+	&::before {
+		content: "";
+		font-family: Webdings;
+		font-synthesis: none;
+		font-size: var(--ding-size);
+		line-height: var(--ding-size);
+		margin-block-start: calc(var(--ding) * var(--ding-size) * -1);
+		inline-size: min-content;
+		word-break: break-all;
+		overflow: clip;
+	}
 }
