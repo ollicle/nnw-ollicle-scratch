@@ -6,7 +6,7 @@ A work in progress. To be continued.
 
 ## Install for use
 
-1. Download latest version: <a href="https://github.com/ollicle/nnw-ollicle-scratch/raw/main/dist/Scratch.nnwtheme_v14.zip">Scratch.nnwtheme_v14.zip</a>
+1. Download latest version: <a href="https://github.com/ollicle/nnw-ollicle-scratch/raw/main/dist/Scratch.nnwtheme_v15.zip">Scratch.nnwtheme_v15.zip</a>
 2. Unzip it
 3. Open **Scratch.nnwtheme** and follow the prompts.
 4. Select “Scratch” in the NetNewsWire theme dropdown. 
