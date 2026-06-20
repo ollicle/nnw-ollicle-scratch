@@ -812,7 +812,7 @@ blockquote {
 
 .systemMessage {
 	--ding-size: 3rlh;
-	--ding: random(0,221,1);
+	--ding: random(0,43,1);
 	grid-area: main;
 	margin: auto;
 	text-align: center;
@@ -823,8 +823,8 @@ blockquote {
 	overflow: clip;
 	
 	&::before {
-		content: "";
-		font-family: Webdings;
+		content: "🀐🀀🀁🀂🀃🀄🀅🀆🀇🀈🀉🀊🀋🀌🀍🀎🀏🀑🀒🀓🀔🀕🀖🀗🀘🀙🀚🀛🀜🀝🀞🀟🀠🀡🀢🀣🀤🀥🀦🀧🀨🀩🀪🀫" / "";
+		font-family: AppleSymbols;
 		font-synthesis: none;
 		font-size: var(--ding-size);
 		line-height: var(--ding-size);
