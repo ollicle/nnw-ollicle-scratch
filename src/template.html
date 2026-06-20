@@ -111,8 +111,9 @@ class ReTitle extends HTMLElement {
 	
 	hasTitleOnly() {
 		const text = this.normalise(this.articleBodyText);
-		const elementCount = document.querySelector(".articleBody").children.length;
-		return text.length === 0 && elementCount === 0;
+		const contentSelector = ".articleBody :is(img,video,audio,iframe,svg,object)";
+		const hasContentElement = document.querySelector(contentSelector);
+		return text.length === 0 && !hasContentElement;
 	}
 	
 	titleMatchesContent() {
